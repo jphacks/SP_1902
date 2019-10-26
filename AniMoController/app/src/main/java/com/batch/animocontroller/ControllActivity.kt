@@ -18,7 +18,7 @@ import org.json.JSONObject
 import java.lang.Exception
 import kotlin.properties.Delegates
 
-class ControllActivity : AppCompatActivity(), SensorEventListener {
+class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Listener {
 
     private val socket = IO.socket("http://ec2-54-65-64-81.ap-northeast-1.compute.amazonaws.com")
     private var mManager: SensorManager by Delegates.notNull<SensorManager>()
@@ -52,7 +52,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener {
         //加速度計のセンサーを取得する
         mSensor = mManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
-        val aniMoSwipe = AniMoSwipe()
+        val aniMoSwipe = AniMoSwipe(this)
         gestureDetectorCompat = GestureDetectorCompat(this, aniMoSwipe)
     }
 
@@ -117,7 +117,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener {
         )
 
         socket
-            .emit(endpoint, body, Emitter.Listener{
+            .emit(endpoint, body, Emitter.Listener {
             })
             .on("webGoToNextSlide") {
                 try {
@@ -191,9 +191,12 @@ class ControllActivity : AppCompatActivity(), SensorEventListener {
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-//        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-//        vibrator.vibrate(longArrayOf(0, 40, 20, 40), -1)
         gestureDetectorCompat.onTouchEvent(event)
         return super.onTouchEvent(event)
+    }
+
+    override fun vib() {
+        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        vibrator.vibrate(longArrayOf(0, 30), -1)
     }
 }
