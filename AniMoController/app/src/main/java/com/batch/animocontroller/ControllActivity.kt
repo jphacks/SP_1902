@@ -5,13 +5,20 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.hardware.usb.UsbEndpoint
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
+import io.socket.client.IO
+import io.socket.emitter.Emitter
+import org.json.JSONObject
+import java.lang.Exception
 import kotlin.properties.Delegates
 
 class ControllActivity : AppCompatActivity(), SensorEventListener {
+
+    private val socket = IO.socket("http://ec2-54-65-64-81.ap-northeast-1.compute.amazonaws.com")
     private var mManager: SensorManager by Delegates.notNull<SensorManager>()
     private var mSensor: Sensor by Delegates.notNull<Sensor>()
 
@@ -44,17 +51,19 @@ class ControllActivity : AppCompatActivity(), SensorEventListener {
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         when (keyCode) {
             KeyEvent.KEYCODE_VOLUME_UP -> {
+                val endpoint = "mobileSendNextSlideAction"
                 if (motionFlag == false) {
                     startSensing()
                 } else {
-                    endSensing()
+                    endSensing(endpoint)
                 }
             }
             KeyEvent.KEYCODE_VOLUME_DOWN -> {
+                val endpoint = "mobileSendNextSlideAction"
                 if (motionFlag == false) {
                     startSensing()
                 } else {
-                    endSensing()
+                    endSensing(endpoint)
                 }
             }
         }
@@ -67,7 +76,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener {
         mManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_UI)
     }
 
-    private fun endSensing() {
+    private fun endSensing(endpoint: String) {
         Log.d("endSensing", "end")
         // ボタンが離されたとき
         motionFlag = false
@@ -76,12 +85,46 @@ class ControllActivity : AppCompatActivity(), SensorEventListener {
         // 端末の振る方向の検知
         val result = calcCut(sensorxValues, sensorzValues)
 
-        // センサ値の値見るためのログ
-        showLog()
-        // 各軸センサの初期化
-        sensorxValues = mutableListOf()
-        sensoryValues = mutableListOf()
-        sensorzValues = mutableListOf()
+        val direction: String
+        when (result) {
+            1 -> {
+                direction = "up"
+            }
+            2 -> {
+                direction = "down"
+            }
+            3 -> {
+                direction = "right"
+            }
+            else -> {
+                direction = "left"
+            }
+        }
+
+        val body = JSONObject(
+            """{
+                |"animType":"fadeOut",
+                |"direction":$direction
+                |}""".trimMargin()
+        )
+
+        socket.connect()
+            .emit(endpoint, body, Emitter.Listener{
+            })
+            .on("webGoToNextSlide") {
+                try {
+                    Log.d("batchResponse", it[0].toString())
+                } catch (e: Exception) {
+
+                }
+            }
+
+//        // センサ値の値見るためのログ
+//        showLog()
+//        // 各軸センサの初期化
+//        sensorxValues = mutableListOf()
+//        sensoryValues = mutableListOf()
+//        sensorzValues = mutableListOf()
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
@@ -99,7 +142,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener {
         for (i in 1..values.size - 4) {
             changeValues.add(values[i + 1] - values[i])
         }
-        Log.d("changeamount", changeValues.toString())
+//        Log.d("changeamount", changeValues.toString())
         return changeValues
     }
 

@@ -51,6 +51,9 @@ class ConnectActivity : AppCompatActivity() {
             .on(io.socket.client.Socket.EVENT_CONNECT) {
                 Log.d(TAG, "CONNECT!")
             }
+            .emit("onreq", "", Emitter.Listener {
+                it[0]
+            })
             .on("ping") {
                 try {
                     val json = it[0] as JSONObject
