@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as socketIo from 'socket.io';
 import { AddressInfo } from 'net';
 import { EventType, NextSlidePayload, PrevSlidePayload } from './AnimoTypes';
+import {QRCodeFileGenClass} from "./QRCodeFileGen"
 
 const app = express();
 const router = express.Router();
@@ -43,6 +44,10 @@ io.on('connection', socket => {
 
   socket.on(EventType.Web_Start_Presentation, () => {
     const sessionId = getRndStr()
+    const _QRCodeFileGen = new QRCodeFileGenClass();
+    const filepath:string = __dirname + "/test.png"
+    const filetype:string = ".png"
+    _QRCodeFileGen.toFile(filepath, filetype, sessionId);
     socket.join(sessionId)
     io.to(sessionId).emit(EventType.Web_Start_Presentation, {sessionId})
   });
