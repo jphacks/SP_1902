@@ -25,12 +25,12 @@ io.on('connection', socket => {
   socket.emit('ping', { response: 'pong' });
 
   // モバイルの命令をトリガーに*次のスライドへ進む*イベントを発火
-  socket.on(EventType.Mobile_NextSlide_Action, (payload: NextSlidePayload) => {
+  socket.on(EventType.Mobile_Send_NextSlide_Action, (payload: NextSlidePayload) => {
     io.sockets.emit(EventType.Web_Go_To_NextSlide, payload);
   });
 
   // モバイルの命令をトリガーに*前のスライドへ戻る*イベントを発火
-  socket.on(EventType.Mobile_PrevSlide_Action, (payload: PrevSlidePayload) => {
+  socket.on(EventType.Mobile_Send_PrevSlide_Action, (payload: PrevSlidePayload) => {
     io.sockets.emit(EventType.Web_Return_To_PrevSlide, payload);
   });
 

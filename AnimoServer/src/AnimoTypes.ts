@@ -15,8 +15,8 @@ export type NextSlidePayload = {
 export type PrevSlidePayload = {};
 
 export enum EventType {
-  Mobile_NextSlide_Action = 'mobileNextSlideAction',
-  Mobile_PrevSlide_Action = 'mobilePrevSlideAction',
+  Mobile_Send_NextSlide_Action = 'mobileSendNextSlideAction',
+  Mobile_Send_PrevSlide_Action = 'mobileSendPrevSlideAction',
   Web_Go_To_NextSlide = 'webGoToNextSlide',
   Web_Return_To_PrevSlide = 'webReturnToPrevSlide',
 }
