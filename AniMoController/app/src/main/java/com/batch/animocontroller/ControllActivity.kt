@@ -151,22 +151,20 @@ class ControllActivity : AppCompatActivity() , SensorEventListener {
         // 横振りか縦振りかを判別
         // 横振り
         if (Math.abs(calcSensorValues(xvalues)) > Math.abs(calcSensorValues(zvalues))) {
-            Log.d("kmd", "横ふり")
-            if (calcAmountChange(xvalues).sum() > 0) {
-                Log.d("sensormotion", "左に向かって振ったよ")
+            if (calcSensorValues(xvalues) > 0) {
+                Log.d("sensormotion", "右に向かって振ったよ")
                 motionId = 1
             } else {
-                Log.d("sensormotion", "右に向かって振ったよ")
+                Log.d("sensormotion", "左に向かって振ったよ")
                 motionId = 2
             }
             // 縦振り
         } else {
-            Log.d("kmd", "縦ふり")
-            if (calcAmountChange(zvalues).sum() > 0) {
-                Log.d("sensormotion", "下に向かって振ったよ")
+            if (calcSensorValues(zvalues) > 0) {
+                Log.d("sensormotion", "上に向かって振ったよ")
                 motionId = 3
             } else {
-                Log.d("sensormotion", "上に向かって振ったよ")
+                Log.d("sensormotion", "下に向かって振ったよ")
                 motionId = 4
             }
         }
