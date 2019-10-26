@@ -7,7 +7,12 @@ export enum AniMoAnimation {
   ZoomOut = 'zoomOut',
 }
 
-export type AniMoAction = {
+export type NextSlidePayload = {
   animType: AniMoAnimation;
   direction: TrasitionDirection;
 };
+
+export enum EventType {
+  NextSlide = 'nextSlide',
+  PrevSlide = 'prevSlide',
+}
