@@ -23,6 +23,7 @@ class ConnectActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_connect)
+
         startButton.visibility = View.GONE
 
         connectButton.setOnClickListener {

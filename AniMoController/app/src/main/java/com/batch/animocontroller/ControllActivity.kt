@@ -12,6 +12,7 @@ import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
 import io.socket.client.IO
 import io.socket.emitter.Emitter
+import kotlinx.android.synthetic.main.activity_controll.*
 import org.json.JSONObject
 import java.lang.Exception
 import kotlin.properties.Delegates
@@ -41,6 +42,8 @@ class ControllActivity : AppCompatActivity(), SensorEventListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_controll)
+
+        socket.connect()
 
         //センサーマネージャーを取得する
         mManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
@@ -108,7 +111,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener {
                 |}""".trimMargin()
         )
 
-        socket.connect()
+        socket
             .emit(endpoint, body, Emitter.Listener{
             })
             .on("webGoToNextSlide") {
@@ -152,7 +155,6 @@ class ControllActivity : AppCompatActivity(), SensorEventListener {
         // 横振りか縦振りかを判別
         // 横振り
         if (Math.abs(xvalues[1]) > Math.abs(zvalues[1])) {
-            Log.d("kmd", "縦ふりモード")
             if (calcSensorValues(xvalues) > 0) {
                 motionId = 1
                 Log.d("sensormotion", "上に向かって振ったよ")
@@ -162,7 +164,6 @@ class ControllActivity : AppCompatActivity(), SensorEventListener {
             }
             // 縦振り
         } else {
-            Log.d("kmd", "横ふりモード")
             if (calcSensorValues(xvalues) > 0) {
                 motionId = 3
                 Log.d("sensormotion", "右に向かって振ったよ")
