@@ -12,7 +12,11 @@ export type NextSlidePayload = {
   direction: TrasitionDirection;
 };
 
+export type PrevSlidePayload = {};
+
 export enum EventType {
-  NextSlide = 'nextSlide',
-  PrevSlide = 'prevSlide',
+  Mobile_NextSlide_Action = 'mobileNextSlideAction',
+  Mobile_PrevSlide_Action = 'mobilePrevSlideAction',
+  Web_Go_To_NextSlide = 'webGoToNextSlide',
+  Web_Return_To_PrevSlide = 'webReturnToPrevSlide',
 }
