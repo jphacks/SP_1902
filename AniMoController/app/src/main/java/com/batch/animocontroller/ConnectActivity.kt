@@ -31,7 +31,7 @@ class ConnectActivity : AppCompatActivity() {
                 GlobalScope.launch {
                     connection()
                 }.join()
-                Thread.sleep(300)
+                Thread.sleep(400)
             }
             Log.d("batchkakeru", "3")
             if (connectionFlag == true) {
