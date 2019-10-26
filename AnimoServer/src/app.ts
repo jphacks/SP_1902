@@ -6,6 +6,21 @@ import { EventType, NextSlidePayload, PrevSlidePayload } from './AnimoTypes';
 const app = express();
 const router = express.Router();
 
+function getRndStr():string{
+  //使用文字の定義
+  var str = "0123456789";
+
+  //桁数の定義
+  var len = 4;
+
+  //ランダムな文字列の生成
+  var result = "#";
+  for(var i=0;i<len;i++){
+    result += str.charAt(Math.floor(Math.random() * str.length));
+  }
+  return result;
+}
+
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -27,7 +42,7 @@ io.on('connection', socket => {
   socket.emit('ping', { response: 'pong' });
 
   socket.on(EventType.Web_Start_Presentation, () => {
-    const sessionId = '#ABCDEF'
+    const sessionId = getRndStr()
     socket.join(sessionId)
     io.to(sessionId).emit(EventType.Web_Start_Presentation, {sessionId})
   });
