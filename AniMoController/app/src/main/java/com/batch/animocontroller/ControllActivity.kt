@@ -1,6 +1,7 @@
 package com.batch.animocontroller
 
 import android.content.Context
+import android.graphics.Color
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -10,10 +11,14 @@ import android.os.Vibrator
 import android.util.Log
 import android.view.KeyEvent
 import android.view.MotionEvent
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GestureDetectorCompat
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import io.socket.client.IO
 import io.socket.emitter.Emitter
+import kotlinx.android.synthetic.main.activity_controll.*
 import org.json.JSONObject
 import java.lang.Exception
 import kotlin.properties.Delegates
@@ -194,6 +199,42 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         gestureDetectorCompat.onTouchEvent(event)
         return super.onTouchEvent(event)
+    }
+
+    override fun swipeAnim(swipe: String) {
+        val animoView = findViewById<View>(R.id.testView)
+        when (swipe) {
+            "RIGHT" -> {
+                animoView.setBackgroundColor(Color.BLACK)
+                YoYo.with(Techniques.SlideInLeft)
+                    .duration(700)
+                    .repeat(0)
+                    .playOn(animoView)
+            }
+            "LEFT" -> {
+                animoView.setBackgroundColor(Color.RED)
+                YoYo.with(Techniques.SlideInRight)
+                    .duration(700)
+                    .repeat(0)
+                    .playOn(findViewById(R.id.testView))
+            }
+            "UP" -> {
+                animoView.setBackgroundColor(Color.GREEN)
+                YoYo.with(Techniques.SlideInUp)
+                    .duration(700)
+                    .repeat(0)
+                    .playOn(findViewById(R.id.testView))
+            }
+            "DOWN" -> {
+                animoView.setBackgroundColor(Color.YELLOW)
+                YoYo.with(Techniques.SlideInDown)
+                    .duration(700)
+                    .repeat(0)
+                    .playOn(findViewById(R.id.testView))
+            }
+            else -> {
+            }
+        }
     }
 
     override fun vib() {

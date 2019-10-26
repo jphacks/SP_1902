@@ -7,4 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".ControllActivity">
 
+    <View
+        android:id="@+id/testView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></View>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

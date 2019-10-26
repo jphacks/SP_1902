@@ -12,6 +12,7 @@ class AniMoSwipe(private val listener: Listener) : GestureDetector.SimpleOnGestu
 
     interface Listener {
         fun vib()
+        fun swipeAnim(swipe: String)
     }
 
     override fun onFling(
@@ -38,18 +39,21 @@ class AniMoSwipe(private val listener: Listener) : GestureDetector.SimpleOnGestu
             if (deltaX > 0) {
                 Log.d("batchSwipe", "Swipe to left")
                 listener.vib()
+                listener.swipeAnim("LEFT")
             } else {
                 Log.d("batchSwipe", "Swipe to right")
                 listener.vib()
+                listener.swipeAnim("RIGHT")
             }
-        }
-        if ((deltaYAbs >= MIN_SWIPE_DISTANCE_Y) && (deltaYAbs <= MAX_SWIPE_DISTANCE_Y)) {
+        } else if ((deltaYAbs >= MIN_SWIPE_DISTANCE_Y) && (deltaYAbs <= MAX_SWIPE_DISTANCE_Y)) {
             if (deltaY > 0) {
                 Log.d("batchSwipe", "Swipe to up")
                 listener.vib()
+                listener.swipeAnim("UP")
             } else {
                 Log.d("batchSwipe", "Swipe to down")
                 listener.vib()
+                listener.swipeAnim("DOWN")
             }
         }
         return true
