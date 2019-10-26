@@ -29,6 +29,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
     private var sensoryValues: MutableList<Float> = mutableListOf()
     private var sensorzValues: MutableList<Float> = mutableListOf()
     private var changeValues: MutableList<Float> = mutableListOf()
+    private val SENSORDELAY: Long = 300
 
     private var motionFlag = false
     override fun onSensorChanged(event: SensorEvent) {
@@ -128,11 +129,11 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
             }
 
 //        // センサ値の値見るためのログ
-//        showLog()
+        showLog()
 //        // 各軸センサの初期化
-//        sensorxValues = mutableListOf()
-//        sensoryValues = mutableListOf()
-//        sensorzValues = mutableListOf()
+        sensorxValues = mutableListOf()
+        sensoryValues = mutableListOf()
+        sensorzValues = mutableListOf()
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
@@ -160,7 +161,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
         // 横振りか縦振りかを判別
         // 横振り
         if (Math.abs(xvalues[1]) > Math.abs(zvalues[1])) {
-            if (calcSensorValues(xvalues) > 0) {
+            if (calcSensorValues(xvalues) -8> 0) {
                 motionId = 1
                 Log.d("sensormotion", "上に向かって振ったよ")
             } else {
