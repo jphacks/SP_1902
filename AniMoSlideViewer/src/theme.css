@@ -1,4 +1,3 @@
-
 /* Ionic Variables and Theming. For more information, please see
 // https://beta.ionicframework.com/docs/theming/
 // The app direction is used to include
@@ -169,8 +168,10 @@
   --ion-color-navigation: #6600cc;
 }
 
-.md {
-  --ion-toolbar-background: var(--ion-color-primary);
-  --ion-toolbar-color: #fff;
-  --ion-toolbar-color-activated: #fff;
+.md ion-slide {
+  height: calc(100vh - 56px);
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  flex-direction: column;
 }
