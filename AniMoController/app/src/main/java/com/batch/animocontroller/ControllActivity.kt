@@ -5,14 +5,15 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.hardware.usb.UsbEndpoint
 import android.os.Bundle
+import android.os.Vibrator
 import android.util.Log
 import android.view.KeyEvent
+import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GestureDetectorCompat
 import io.socket.client.IO
 import io.socket.emitter.Emitter
-import kotlinx.android.synthetic.main.activity_controll.*
 import org.json.JSONObject
 import java.lang.Exception
 import kotlin.properties.Delegates
@@ -22,6 +23,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener {
     private val socket = IO.socket("http://ec2-54-65-64-81.ap-northeast-1.compute.amazonaws.com")
     private var mManager: SensorManager by Delegates.notNull<SensorManager>()
     private var mSensor: Sensor by Delegates.notNull<Sensor>()
+    private lateinit var gestureDetectorCompat: GestureDetectorCompat
 
     private var sensorxValues: MutableList<Float> = mutableListOf()
     private var sensoryValues: MutableList<Float> = mutableListOf()
@@ -49,6 +51,9 @@ class ControllActivity : AppCompatActivity(), SensorEventListener {
         mManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         //加速度計のセンサーを取得する
         mSensor = mManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+
+        val aniMoSwipe = AniMoSwipe()
+        gestureDetectorCompat = GestureDetectorCompat(this, aniMoSwipe)
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
@@ -183,5 +188,12 @@ class ControllActivity : AppCompatActivity(), SensorEventListener {
         Log.d("averagez", calcSensorValues(sensorzValues).toString())
         Log.d("xchange", calcAmountChange(sensorxValues).toString())
         Log.d("zchange", calcAmountChange(sensorzValues).toString())
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+//        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+//        vibrator.vibrate(longArrayOf(0, 40, 20, 40), -1)
+        gestureDetectorCompat.onTouchEvent(event)
+        return super.onTouchEvent(event)
     }
 }
