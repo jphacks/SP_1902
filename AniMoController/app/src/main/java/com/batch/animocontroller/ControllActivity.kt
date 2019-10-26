@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.properties.Delegates
 
-class MainActivity : AppCompatActivity() , SensorEventListener {
+class ControllActivity : AppCompatActivity() , SensorEventListener {
     private var mManager: SensorManager by Delegates.notNull<SensorManager>()
     private var mSensor: Sensor by Delegates.notNull<Sensor>()
 
