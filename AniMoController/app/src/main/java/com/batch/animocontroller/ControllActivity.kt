@@ -37,6 +37,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
     private val SENSORDELAY: Long = 300
 
     private var motionFlag = false
+    private var animationType = "none"
     override fun onSensorChanged(event: SensorEvent) {
         if (event.sensor.type == Sensor.TYPE_ACCELEROMETER) {
             // 各軸のセンサを配列に入れる
@@ -117,7 +118,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
 
         val body = JSONObject(
             """{
-                |"animType":"fadeOut",
+                |"animType":$animationType,
                 |"direction":$direction
                 |}""".trimMargin()
         )
@@ -206,6 +207,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
         when (swipe) {
             "RIGHT" -> {
                 animoView.setImageResource(R.drawable.hidari_ude)
+                animationType = "fadeOut"
                 YoYo.with(Techniques.SlideInLeft)
                     .duration(700)
                     .repeat(0)
@@ -213,6 +215,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
             }
             "LEFT" -> {
                 animoView.setImageResource(R.drawable.hidari_ude)
+                animationType = "slideOut"
                 YoYo.with(Techniques.SlideInRight)
                     .duration(700)
                     .repeat(0)
@@ -220,6 +223,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
             }
             "UP" -> {
                 animoView.setImageResource(R.drawable.egzo_atama)
+                animationType = "none"
                 YoYo.with(Techniques.SlideInUp)
                     .duration(700)
                     .repeat(0)
@@ -227,6 +231,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
             }
             "DOWN" -> {
                 animoView.setImageResource(R.drawable.migi_ashi)
+                animationType = "zoomOut"
                 YoYo.with(Techniques.SlideInDown)
                     .duration(700)
                     .repeat(0)
