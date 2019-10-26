@@ -146,26 +146,26 @@ class ControllActivity : AppCompatActivity() , SensorEventListener {
         return changeValues
     }
 
+    // ガチ持ち手でアクション
     fun calcCut(xvalues: MutableList<Float>, zvalues: MutableList<Float>): Int {
         var motionId = 0
         // 横振りか縦振りかを判別
         // 横振り
-        if (Math.abs(calcSensorValues(xvalues)) > Math.abs(calcSensorValues(zvalues))) {
+
+        if (Math.abs(xvalues[1]) > Math.abs(zvalues[1])) {
+            Log.d("kmd", "縦ふりモード")
             if (calcSensorValues(xvalues) > 0) {
-                Log.d("sensormotion", "右に向かって振ったよ")
-                motionId = 1
-            } else {
-                Log.d("sensormotion", "左に向かって振ったよ")
-                motionId = 2
+                Log.d("sensormotion", "上に向かって振ったよ")
+            }else{
+                Log.d("sensormotion", "下に向かって振ったよ")
             }
             // 縦振り
-        } else {
-            if (calcSensorValues(zvalues) > 0) {
-                Log.d("sensormotion", "上に向かって振ったよ")
-                motionId = 3
+        } else{
+            Log.d("kmd", "横ふりモード")
+            if (calcSensorValues(xvalues) > 0) {
+                Log.d("sensormotion", "右に向かって振ったよ")
             } else {
-                Log.d("sensormotion", "下に向かって振ったよ")
-                motionId = 4
+                Log.d("sensormotion", "左に向かって振ったよ")
             }
         }
         return motionId
