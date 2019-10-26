@@ -22,29 +22,12 @@ class ControllActivity : AppCompatActivity() , SensorEventListener {
     private var changeValues: MutableList<Float> = mutableListOf()
 
     override fun onSensorChanged(event: SensorEvent) {
-        var strb: StringBuffer = StringBuffer()
-
         if (event.sensor.type == Sensor.TYPE_ACCELEROMETER) {
-            strb.append("x軸")
-            strb.append(event.values[0])
-            strb.append("　y軸")
-            strb.append(event.values[1])
-            strb.append("　z軸")
-            strb.append(event.values[2])
-            accelText.setText(strb.toString())
-
             // 各軸のセンサを配列に入れる
             sensorxValues.add(event.values[0])
             sensoryValues.add(event.values[1])
             sensorzValues.add(event.values[2])
 
-            // 加速度から重力の方向を表示
-            if (event.values[0] >= 9) gravityText.setText("←")
-            if (event.values[0] <= -9) gravityText.setText("→")
-            if (event.values[1] >= 9) gravityText.setText("↓")
-            if (event.values[1] <= -9) gravityText.setText("↑")
-            if (event.values[2] >= 9) gravityText.setText("下")
-            if (event.values[2] <= -9) gravityText.setText("上")
         }
     }
 
@@ -57,68 +40,22 @@ class ControllActivity : AppCompatActivity() , SensorEventListener {
         //加速度計のセンサーを取得する
         mSensor = mManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
-
-        action1Button.setOnTouchListener { _, event ->
+        actionButton.setOnTouchListener { _, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     // ボタンが押し込まれたとき
                     mManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_UI)
-                    labelsText.setText("押しているよ")
                 }
                 MotionEvent.ACTION_UP -> {
                     // ボタンが離されたとき
                     mManager.unregisterListener(this)
-                    labelsText.setText("離したよ")
-                    gravityText.setText("重力リセット")
-                    Log.d("xsensor", sensorxValues.toString())
-                    Log.d("zsensor", sensorzValues.toString())
-                    Log.d("averagex", calcSensorValues(sensorxValues).toString())
-                    Log.d("averagez", calcSensorValues(sensorzValues).toString())
-                    Log.d("xchange", calcAmountChange(sensorxValues).toString())
-                    Log.d("zchange", calcAmountChange(sensorzValues).toString())
-
-                    calcCut(sensorxValues, sensorzValues)
                     calcAmountChange(sensorzValues)
+                    // 端末の振る方向の検知
+                    calcCut(sensorxValues, sensorzValues)
 
+                    // センサ値の値見るためのログ
+                    showLog()
                     // 各軸センサの初期化
-                    sensorxValues = mutableListOf()
-                    sensoryValues = mutableListOf()
-                    sensorzValues = mutableListOf()
-                }
-            }
-            false
-        }
-        action2Button.setOnTouchListener { _, event ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    // ボタンが押し込まれたとき
-                    mManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_UI)
-                    labelsText.setText("押しているよ")
-                }
-                MotionEvent.ACTION_UP -> {
-                    // ボタンが離されたとき
-                    mManager.unregisterListener(this)
-                    labelsText.setText("離したよ")
-                    gravityText.setText("重力リセット")
-                    sensorxValues = mutableListOf()
-                    sensoryValues = mutableListOf()
-                    sensorzValues = mutableListOf()
-                }
-            }
-            false
-        }
-        action3Button.setOnTouchListener { _, event ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    // ボタンが押し込まれたとき
-                    mManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_UI)
-                    labelsText.setText("押しているよ")
-                }
-                MotionEvent.ACTION_UP -> {
-                    // ボタンが離されたとき
-                    mManager.unregisterListener(this)
-                    labelsText.setText("離したよ")
-                    gravityText.setText("重力リセット")
                     sensorxValues = mutableListOf()
                     sensoryValues = mutableListOf()
                     sensorzValues = mutableListOf()
@@ -151,7 +88,6 @@ class ControllActivity : AppCompatActivity() , SensorEventListener {
         var motionId = 0
         // 横振りか縦振りかを判別
         // 横振り
-
         if (Math.abs(xvalues[1]) > Math.abs(zvalues[1])) {
             Log.d("kmd", "縦ふりモード")
             if (calcSensorValues(xvalues) > 0) {
@@ -169,5 +105,15 @@ class ControllActivity : AppCompatActivity() , SensorEventListener {
             }
         }
         return motionId
+    }
+
+    // センサ値ログ表示
+    fun showLog(){
+        Log.d("xsensor", sensorxValues.toString())
+        Log.d("zsensor", sensorzValues.toString())
+        Log.d("averagex", calcSensorValues(sensorxValues).toString())
+        Log.d("averagez", calcSensorValues(sensorzValues).toString())
+        Log.d("xchange", calcAmountChange(sensorxValues).toString())
+        Log.d("zchange", calcAmountChange(sensorzValues).toString())
     }
 }
