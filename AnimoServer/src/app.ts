@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as socketIo from 'socket.io';
 import { AddressInfo } from 'net';
+import { EventType, NextSlidePayload, PrevSlidePayload } from './AnimoTypes';
 
 const app = express();
 const router = express.Router();
@@ -20,11 +21,19 @@ const server = app.listen(port, () => {
 const io = socketIo(server);
 
 io.on('connection', socket => {
+  // 疎通確認用
   socket.emit('ping', { response: 'pong' });
-  socket.on('onreq', data => {
-    socket.emit('onres', { response: 'on response' });
-    io.sockets.emit('onres', { response: 'io.sockets.emit response' });
+
+  // モバイルの命令をトリガーに*次のスライドへ進む*イベントを発火
+  socket.on(EventType.Mobile_NextSlide_Action, (payload: NextSlidePayload) => {
+    io.sockets.emit(EventType.Web_Go_To_NextSlide, payload);
   });
+
+  // モバイルの命令をトリガーに*前のスライドへ戻る*イベントを発火
+  socket.on(EventType.Mobile_PrevSlide_Action, (payload: PrevSlidePayload) => {
+    io.sockets.emit(EventType.Web_Return_To_PrevSlide, payload);
+  });
+
   socket.on('disconnect', () => {
     console.log('Client disconnected');
   });
