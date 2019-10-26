@@ -26,6 +26,17 @@ io.on('connection', socket => {
   // 疎通確認用
   socket.emit('ping', { response: 'pong' });
 
+  socket.on(EventType.Web_Start_Presentation, () => {
+    const sessionId = '#ABCDEF'
+    socket.join(sessionId)
+    io.to(sessionId).emit(EventType.Web_Start_Presentation, {sessionId})
+  });
+
+  socket.on(EventType.Mobile_Connect_Presentation, (sessionId: string) => {
+    socket.join(sessionId)
+    io.to(sessionId).emit(EventType.Mobile_Connect_Complete, {response: 'connect completed'})
+  })
+
   // モバイルの命令をトリガーに*次のスライドへ進む*イベントを発火
   socket.on(EventType.Mobile_Send_NextSlide_Action, (payload: NextSlidePayload) => {
     // Use of Date.now() function
@@ -33,13 +44,13 @@ io.on('connection', socket => {
     // Converting the number of millisecond in date string
     const a = d.toString()
     console.log(`[${a}]receive ${EventType.Mobile_Send_NextSlide_Action} payload: ${JSON.stringify(payload)}`)
-    socket.broadcast.emit(EventType.Web_Go_To_NextSlide, payload);
+    io.to(payload.sessionId).emit(EventType.Web_Go_To_NextSlide, payload);
   });
 
   // モバイルの命令をトリガーに*前のスライドへ戻る*イベントを発火
   socket.on(EventType.Mobile_Send_PrevSlide_Action, (payload: PrevSlidePayload) => {
     console.log(`receive ${EventType.Mobile_Send_NextSlide_Action} payload: ${payload}`)
-    io.sockets.emit(EventType.Web_Return_To_PrevSlide, payload);
+    io.to(payload.sessionId).emit(EventType.Web_Return_To_PrevSlide, payload);
   });
 
   socket.on('disconnect', () => {
