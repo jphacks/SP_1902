@@ -3,8 +3,8 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import { PDFDocumentProxy } from 'pdfjs-dist';
 import styled from 'styled-components';
 import socketIOClient from 'socket.io-client';
-import { EventType, NextSlidePayload } from '../../AnimoTypes';
-const Fade = require('react-reveal/Fade');
+import { EventType, NextSlidePayload, AniMoAnimation, PrevSlidePayload } from '../../AnimoTypes';
+import { WithAnimation } from '../standalones/WithAnimation';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${
   pdfjs.version
@@ -18,10 +18,17 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
+enum KeyCode {
+  LEFT_ARROW = 37,
+  RIGHT_ARROW = 39,
+}
+
 export const SlideShowPage: React.FC = () => {
   const [currentPageIndex, setCurrentPageIndex] = useState(1);
   const [pageNum, setPageNum] = useState<number>(0);
   const [visible, setVisible] = useState(true);
+  const [payload, setPayload] = useState<NextSlidePayload>();
+  const animationTimeMs = 500;
 
   const handleLoadSucceeded = (pdf: PDFDocumentProxy) => {
     setPageNum(pdf.numPages);
@@ -34,16 +41,43 @@ export const SlideShowPage: React.FC = () => {
   useEffect(() => {
     socket.on(EventType.Web_Go_To_NextSlide, (payload: NextSlidePayload) => {
       console.log(JSON.stringify(payload));
-      setCurrentPageIndex(i => i + 1);
+      setPayload(payload);
+      setVisible(false);
+      setTimeout(() => {
+        setCurrentPageIndex(i => i + 1);
+        setVisible(true);
+      }, animationTimeMs);
+    });
+
+    socket.on(EventType.Web_Return_To_PrevSlide, (payload: PrevSlidePayload) => {
+      setPayload({ animType: AniMoAnimation.None, direction: 'left' });
+      setVisible(false);
+      setTimeout(() => {
+        setCurrentPageIndex(i => i - 1);
+        setVisible(true);
+      }, 0);
     });
   }, []);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    setVisible(false);
-    setTimeout(() => {
-      setCurrentPageIndex(i => i + 1);
-      setVisible(true);
-    }, 500);
+    switch (e.keyCode) {
+      case KeyCode.RIGHT_ARROW:
+        setPayload({ animType: AniMoAnimation.ZoomOut, direction: 'right' });
+        setVisible(false);
+        setTimeout(() => {
+          setCurrentPageIndex(i => i + 1);
+          setVisible(true);
+        }, animationTimeMs);
+        break;
+      case KeyCode.LEFT_ARROW:
+        setPayload({ animType: AniMoAnimation.None, direction: 'left' });
+        setVisible(false);
+        setTimeout(() => {
+          setCurrentPageIndex(i => i - 1);
+          setVisible(true);
+        }, 0);
+        break;
+    }
   };
 
   return (
@@ -52,9 +86,9 @@ export const SlideShowPage: React.FC = () => {
         file='https://animo-teamx.s3-ap-northeast-1.amazonaws.com/AniMo.pdf'
         onLoadSuccess={handleLoadSucceeded}
       >
-        <Fade right opposite when={visible} duration={500}>
+        <WithAnimation payload={payload} visible={visible} duration={animationTimeMs}>
           <Page key={currentPageIndex} pageNumber={currentPageIndex} scale={1.0} renderMode='svg' />
-        </Fade>
+        </WithAnimation>
       </Document>
     </Wrapper>
   );
