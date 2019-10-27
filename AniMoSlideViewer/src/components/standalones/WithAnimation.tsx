@@ -38,6 +38,12 @@ const getAnimatedChildren = (
               {children}
             </Fade>
           );
+        case 'right':
+          return (
+            <Fade right opposite when={visible} duration={duration}>
+              {children}
+            </Fade>
+          );
         case 'none':
           return (
             <Fade when={visible} duration={duration}>
