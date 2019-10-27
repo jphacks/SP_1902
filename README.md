@@ -54,7 +54,7 @@ AniMoのアピールポイントは『プレゼンター同期型のプレゼン
 
 ## 開発内容・開発技術
 ![システム構成図](システム構成図.png)
-[WebApp](http://ec2-54-199-159-79.ap-northeast-1.compute.amazonaws.com)
+今回開発した[WebApp](http://ec2-54-199-159-79.ap-northeast-1.compute.amazonaws.com)
 ### 活用した技術
 
 #### フレームワーク・ライブラリ・モジュール
