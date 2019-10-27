@@ -156,7 +156,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
     // 取得下センサの変化量
     private fun calcAmountChange(values: MutableList<Float>): MutableList<Float> {
         changeValues = mutableListOf()
-        for (i in 1..values.size - 4) {
+        for (i in 3..values.size - 6) {
             changeValues.add(values[i + 1] - values[i])
         }
 //        Log.d("changeamount", changeValues.toString())
