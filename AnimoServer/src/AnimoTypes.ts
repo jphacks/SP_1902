@@ -5,6 +5,7 @@ export enum AniMoAnimation {
   FadeOut = 'fadeOut',
   SlideOut = 'slideOut',
   ZoomOut = 'zoomOut',
+  Rotate = 'rotate',
 }
 
 export type NextSlidePayload = {
