@@ -6,7 +6,21 @@ import socketIOClient from 'socket.io-client';
 import { EventType, NextSlidePayload, AniMoAnimation, PrevSlidePayload } from '../../AnimoTypes';
 import { WithAnimation } from '../standalones/WithAnimation';
 import Fullscreen from 'react-full-screen';
-import { IonContent, IonButton } from '@ionic/react';
+import {
+  IonContent,
+  IonButton,
+  IonText,
+  IonPage,
+  IonItem,
+  IonAvatar,
+  IonIcon,
+  IonLabel,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+} from '@ionic/react';
+import { Title } from '../standalones/Title';
+import { swap, qrScanner, apps, refreshCircle } from 'ionicons/icons';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${
   pdfjs.version
@@ -105,13 +119,9 @@ export const SlideShowPage: React.FC = () => {
   };
 
   return currentPageIndex <= 0 ? (
-    <IonContent class='ion-justify-content-center'>
-      <IonButton onClick={handleStart} expand='full'>
-        はじめる
-      </IonButton>
-    </IonContent>
+    <FirstPage handleStart={handleStart} />
   ) : (
-    <Fullscreen enabled={fullScreen}>
+    <Fullscreen enabled={fullScreen} onChange={handleFullScreenChange}>
       <Wrapper tabIndex={0}>
         <Document
           file='https://animo-teamx.s3-ap-northeast-1.amazonaws.com/AniMo.pdf'
@@ -130,3 +140,65 @@ export const SlideShowPage: React.FC = () => {
     </Fullscreen>
   );
 };
+
+type FirstPageProps = {
+  handleStart: () => void;
+};
+
+const Thumbnails = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const FirstPage: React.FC<FirstPageProps> = ({ handleStart }) => (
+  <IonContent class='ion-padding'>
+    <IonText>
+      <Title>プレゼンテーションをはじめる</Title>
+    </IonText>
+    <IonText>
+      <IonCard>
+        <Document file='https://animo-teamx.s3-ap-northeast-1.amazonaws.com/AniMo.pdf'>
+          <Thumbnails>
+            <Page pageNumber={1} scale={0.5} renderMode='svg' />
+            <Page pageNumber={2} scale={0.5} renderMode='svg' />
+            <Page pageNumber={3} scale={0.5} renderMode='svg' />
+          </Thumbnails>
+        </Document>
+        <IonCardHeader>
+          <IonCardTitle>JP Hacks 2019 発表スライド</IonCardTitle>
+        </IonCardHeader>
+      </IonCard>
+      <h2>モバイルから操作可能なアニメーション</h2>
+    </IonText>
+    <IonItem>
+      <IonAvatar>
+        <IonIcon icon={swap} size='large' />
+      </IonAvatar>
+      <IonLabel>なし</IonLabel>
+    </IonItem>
+    <IonItem>
+      <IonAvatar>
+        <IonIcon icon={qrScanner} size='large' />
+      </IonAvatar>
+      <IonLabel>ズームアウト</IonLabel>
+    </IonItem>
+    <IonItem>
+      <IonAvatar>
+        <IonIcon icon={apps} size='large' />
+      </IonAvatar>
+      <IonLabel>フェードアウト</IonLabel>
+    </IonItem>
+    <IonItem>
+      <IonAvatar>
+        <IonIcon icon={refreshCircle} size='large' />
+      </IonAvatar>
+      <IonLabel>回転</IonLabel>
+    </IonItem>
+    <IonText>
+      <p>キーボードの左右矢印でも操作可能です。</p>
+    </IonText>
+    <IonButton onClick={handleStart} expand='full'>
+      はじめる
+    </IonButton>
+  </IonContent>
+);
