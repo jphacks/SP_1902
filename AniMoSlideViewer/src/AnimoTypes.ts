@@ -1,4 +1,4 @@
-export type TrasitionDirection = 'up' | 'down' | 'left' | 'right';
+export type TrasitionDirection = 'up' | 'down' | 'left' | 'right' | 'none';
 
 export enum AniMoAnimation {
   None = 'none',
