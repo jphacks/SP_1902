@@ -24,7 +24,7 @@ class ConnectActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_connect)
 
-//        startButton.visibility = View.GONE
+        startButton.visibility = View.GONE
 
         connectButton.setOnClickListener {
             Log.d("batchkakeru", "1")
