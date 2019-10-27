@@ -18,6 +18,7 @@
     "react": "^16.10.2",
     "react-animations": "^1.0.0",
     "react-dom": "^16.10.2",
+    "react-full-screen": "^0.2.4",
     "react-pdf": "^4.1.0",
     "react-reveal": "^1.2.2",
     "react-router": "^5.1.0",

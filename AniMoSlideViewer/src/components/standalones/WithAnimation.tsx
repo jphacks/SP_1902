@@ -1,5 +1,7 @@
 import React from 'react';
-import { NextSlidePayload, AniMoAnimation, TrasitionDirection } from '../../AnimoTypes';
+import { NextSlidePayload, AniMoAnimation } from '../../AnimoTypes';
+import styled from 'styled-components';
+
 const Fade = require('react-reveal/Fade');
 const Zoom = require('react-reveal/Zoom');
 const Rotate = require('react-reveal/Rotate');
@@ -80,7 +82,9 @@ type Props = {
   duration: number;
 };
 
+const Wrapper = styled.div``;
+
 export const WithAnimation: React.FC<Props> = ({ children, payload, visible, duration }) => {
   const animated = getAnimatedChildren(children, visible, duration, payload);
-  return <div>{animated}</div>;
+  return <Wrapper>{animated}</Wrapper>;
 };

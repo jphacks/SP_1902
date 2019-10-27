@@ -8,7 +8,7 @@ import { PresentatinPage } from './components/pages/Presentation';
 import { Menu } from './components/standalones/Menu';
 import { ThemeProvider } from 'styled-components';
 import { SlideShowPage } from './components/pages/SlideShow';
-import styled from 'styled-components';
+import Fullscreen from 'react-full-screen';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
