@@ -5,10 +5,10 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 
 class AniMoSwipe(private val listener: Listener) : GestureDetector.SimpleOnGestureListener() {
-    private val MIN_SWIPE_DISTANCE_X = 500
-    private val MIN_SWIPE_DISTANCE_Y = 500
-    private val MAX_SWIPE_DISTANCE_X = 1000
-    private val MAX_SWIPE_DISTANCE_Y = 1000
+    private val MIN_SWIPE_DISTANCE_X = 100
+    private val MIN_SWIPE_DISTANCE_Y = 100
+    private val MAX_SWIPE_DISTANCE_X = 2000
+    private val MAX_SWIPE_DISTANCE_Y = 2000
 
     interface Listener {
         fun vib()

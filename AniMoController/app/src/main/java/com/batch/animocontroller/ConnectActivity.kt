@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import io.socket.client.IO
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_connect.*
@@ -14,6 +15,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import kotlin.concurrent.thread
+import kotlin.coroutines.experimental.migration.toExperimentalCoroutineContext
 
 class ConnectActivity : AppCompatActivity() {
 
@@ -28,15 +30,15 @@ class ConnectActivity : AppCompatActivity() {
 
         connectButton.setOnClickListener {
             Log.d("batchkakeru", "1")
-            runBlocking {
                 GlobalScope.launch {
+//                    Toast.makeText(it.context, "接続しています", Toast.LENGTH_SHORT).show()
                     connection()
-                }.join()
+                }
                 Thread.sleep(1100)
-            }
             Log.d("batchkakeru", "3")
             if (connectionFlag == true) {
                 startButton.visibility = View.VISIBLE
+//                Toast.makeText(this, "接続しました", Toast.LENGTH_SHORT).show()
             }
         }
 

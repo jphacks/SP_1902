@@ -10,12 +10,12 @@
         android:id="@+id/connectButton"
         android:layout_width="147dp"
         android:layout_height="58dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="48dp"
         android:background="@drawable/shape_rounded_corners"
         android:text="Connect"
+        app:layout_constraintBottom_toTopOf="@+id/startButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -32,27 +32,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/animo_logo2" />
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="SessionID"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
     <Button
         android:id="@+id/startButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginBottom="68dp"
         android:background="@drawable/circle_button_style"
         android:text="start"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/connectButton"
         app:maxImageSize="50dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
