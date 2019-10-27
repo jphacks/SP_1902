@@ -1,6 +1,6 @@
 import { IonHeader, IonContent, IonPage, IonSlides, IonToolbar, IonTitle } from '@ionic/react';
 import React from 'react';
-import { ReadySlide, PairingSlide, SelectingSlide } from '../standalones/PresentationSlides';
+import { ReadySlide, PairingSlide, SelectingSlide } from '../standalones/Presentation';
 
 const slideOpts = {
   initialSlide: 0,
