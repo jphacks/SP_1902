@@ -90,7 +90,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
     private fun startSensing() {
         Log.d("startSensing", "start")
         motionFlag = true
-        mManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_UI)
+        mManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_GAME)
     }
 
     private fun endSensing(endpoint: String) {
@@ -156,7 +156,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
     // 取得下センサの変化量
     private fun calcAmountChange(values: MutableList<Float>): MutableList<Float> {
         changeValues = mutableListOf()
-        for (i in 3..values.size - 6) {
+        for (i in 0..values.size - 10) {
             changeValues.add(values[i + 1] - values[i])
         }
 //        Log.d("changeamount", changeValues.toString())
@@ -171,7 +171,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
             // 横振りか縦振りかを判別
             // 横振り
             if (Math.abs(xvalues[0]) > Math.abs(zvalues[0])) {
-                if (calcSensorValues(xvalues) - 6 > 0) {
+                if (calcSensorValues(xvalues) - 7 > 0) {
                     motionId = 1
                     Log.d("sensormotion", "上に向かって振ったよ")
                 } else {
