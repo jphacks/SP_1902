@@ -166,25 +166,30 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
     // ガチ持ち手でアクション
     private fun calcCut(xvalues: MutableList<Float>, zvalues: MutableList<Float>): Int {
         var motionId = 0
-        // 横振りか縦振りかを判別
-        // 横振り
-        if (Math.abs(xvalues[1]) > Math.abs(zvalues[1])) {
-            if (calcSensorValues(xvalues) -8> 0) {
-                motionId = 1
-                Log.d("sensormotion", "上に向かって振ったよ")
-            } else {
-                motionId = 2
-                Log.d("sensormotion", "下に向かって振ったよ")
+
+        try {
+            // 横振りか縦振りかを判別
+            // 横振り
+            if (Math.abs(xvalues[0]) > Math.abs(zvalues[0])) {
+                if (calcSensorValues(xvalues) - 8 > 0) {
+                    motionId = 1
+                    Log.d("sensormotion", "上に向かって振ったよ")
+                } else {
+                    motionId = 2
+                    Log.d("sensormotion", "下に向かって振ったよ")
+                }
+                // 縦振り
+            } else{
+                if (calcSensorValues(xvalues) -4< 0) {
+                    motionId = 3
+                    Log.d("sensormotion", "右に向かって振ったよ")
+                } else {
+                    motionId = 4
+                    Log.d("sensormotion", "左に向かって振ったよ")
+                }
             }
-            // 縦振り
-        } else {
-            if (calcSensorValues(xvalues) > 0) {
-                motionId = 3
-                Log.d("sensormotion", "右に向かって振ったよ")
-            } else {
-                motionId = 4
-                Log.d("sensormotion", "左に向かって振ったよ")
-            }
+        }catch(e: Exception){
+            Log.d("errorlog", e.toString())
         }
         return motionId
     }
