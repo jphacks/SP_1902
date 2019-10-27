@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="none"
+        android:text="なし"
         android:textSize="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,8 +22,8 @@
 
     <ImageView
         android:id="@+id/animationView"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/animation_rounded_corners"
         android:src="@drawable/ic_compare_arrows_black_24dp"
@@ -35,8 +35,10 @@
         android:id="@+id/imageView2"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="230dp"
+        android:layout_marginBottom="8dp"
         android:src="@drawable/ic_keyboard_arrow_up_black_24dp"
+        app:layout_constraintBottom_toTopOf="@+id/animationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/animationText" />
@@ -55,22 +57,58 @@
         android:id="@+id/prevImageView"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:src="@drawable/ic_chevron_left_black_24dp"
         app:layout_constraintBottom_toBottomOf="@+id/animationView"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/animationView"
         app:layout_constraintTop_toTopOf="@+id/animationView" />
 
     <ImageView
         android:id="@+id/nextImageView"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:src="@drawable/ic_chevron_right_black_24dp"
         app:layout_constraintBottom_toBottomOf="@+id/animationView"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/animationView"
         app:layout_constraintTop_toTopOf="@+id/animationView" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/ic_zoom_out_map_black_24dp" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/nextImageView"
+        app:layout_constraintStart_toEndOf="@+id/nextImageView"
+        app:layout_constraintTop_toTopOf="@+id/nextImageView"
+        android:src="@drawable/ic_cached_black_24dp" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/prevImageView"
+        app:layout_constraintEnd_toStartOf="@+id/prevImageView"
+        app:layout_constraintTop_toTopOf="@+id/prevImageView"
+        android:src="@drawable/ic_blur_on_black_24dp" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/imageView3"
+        app:layout_constraintStart_toStartOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        android:src="@drawable/ic_compare_arrows_black_24dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
