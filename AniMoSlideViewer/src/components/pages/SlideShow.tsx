@@ -69,7 +69,14 @@ export const SlideShowPage: React.FC = () => {
     }
   }, [currentPageIndex]);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
+  const handleKeyDown = (e: KeyboardEvent) => {
     switch (e.keyCode) {
       case KeyCode.RIGHT_ARROW:
         setPayload({ animType: AniMoAnimation.FadeOut, direction: 'none' });
@@ -103,7 +110,7 @@ export const SlideShowPage: React.FC = () => {
     </IonContent>
   ) : (
     <Fullscreen enabled={fullScreen}>
-      <Wrapper tabIndex={0} onKeyDown={handleKeyDown}>
+      <Wrapper tabIndex={0}>
         <Document
           file='https://animo-teamx.s3-ap-northeast-1.amazonaws.com/AniMo.pdf'
           onLoadSuccess={handleLoadSucceeded}
