@@ -171,7 +171,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
             // 横振りか縦振りかを判別
             // 横振り
             if (Math.abs(xvalues[0]) > Math.abs(zvalues[0])) {
-                if (calcSensorValues(xvalues) - 8 > 0) {
+                if (calcSensorValues(xvalues) - 6 > 0) {
                     motionId = 1
                     Log.d("sensormotion", "上に向かって振ったよ")
                 } else {
@@ -180,7 +180,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
                 }
                 // 縦振り
             } else{
-                if (calcSensorValues(xvalues) -4< 0) {
+                if (calcSensorValues(xvalues) -3< 0) {
                     motionId = 3
                     Log.d("sensormotion", "右に向かって振ったよ")
                 } else {
