@@ -261,7 +261,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
                 animoView.setImageResource(R.drawable.ic_blur_on_black_24dp)
 //                animoView.setBackgroundColor(Color.BLACK)
                 animationType = "fadeOut"
-                animationText.text = "fadeOut"
+                animationText.text = "フェードアウト"
                 YoYo.with(Techniques.SlideInLeft)
                     .duration(700)
                     .repeat(0)
@@ -271,7 +271,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
                 animoView.setImageResource(R.drawable.ic_cached_black_24dp)
 //                animoView.setBackgroundColor(Color.RED)
                 animationType = "Rotate"
-                animationText.text = "Rotate"
+                animationText.text = "回転"
                 YoYo.with(Techniques.SlideInRight)
                     .duration(700)
                     .repeat(0)
@@ -281,7 +281,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
                 animoView.setImageResource(R.drawable.ic_compare_arrows_black_24dp)
 //                animoView.setBackgroundColor(Color.GREEN)
                 animationType = "none"
-                animationText.text = "none"
+                animationText.text = "なし"
                 YoYo.with(Techniques.SlideInUp)
                     .duration(700)
                     .repeat(0)
@@ -291,7 +291,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
                 animoView.setImageResource(R.drawable.ic_zoom_out_map_black_24dp)
 //                animoView.setBackgroundColor(Color.YELLOW)
                 animationType = "zoomOut"
-                animationText.text = "zoomOut"
+                animationText.text = "ズームアウト"
                 YoYo.with(Techniques.SlideInDown)
                     .duration(700)
                     .repeat(0)
