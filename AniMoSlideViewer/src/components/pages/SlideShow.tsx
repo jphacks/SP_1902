@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { PDFDocumentProxy } from 'pdfjs-dist';
 import styled from 'styled-components';
@@ -6,6 +6,7 @@ import socketIOClient from 'socket.io-client';
 import { EventType, NextSlidePayload, AniMoAnimation, PrevSlidePayload } from '../../AnimoTypes';
 import { WithAnimation } from '../standalones/WithAnimation';
 import Fullscreen from 'react-full-screen';
+import { IonContent, IonButton } from '@ionic/react';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${
   pdfjs.version
@@ -45,10 +46,10 @@ export const SlideShowPage: React.FC = () => {
     socket.on(EventType.Web_Go_To_NextSlide, (payload: NextSlidePayload) => {
       console.log(JSON.stringify(payload));
       setPayload(payload);
-      setVisible(false);
+      setVisible(v => !v);
       setTimeout(() => {
         setCurrentPageIndex(i => i + 1);
-        setVisible(true);
+        setVisible(v => !v);
       }, animationTimeMs);
     });
 
@@ -65,11 +66,11 @@ export const SlideShowPage: React.FC = () => {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     switch (e.keyCode) {
       case KeyCode.RIGHT_ARROW:
-        setPayload({ animType: AniMoAnimation.ZoomOut, direction: 'right' });
-        setVisible(false);
+        setPayload({ animType: AniMoAnimation.FadeOut, direction: 'none' });
+        setVisible(v => !v);
         setTimeout(() => {
           setCurrentPageIndex(i => i + 1);
-          setVisible(true);
+          setVisible(v => !v);
         }, animationTimeMs);
         break;
       case KeyCode.LEFT_ARROW:
@@ -87,9 +88,11 @@ export const SlideShowPage: React.FC = () => {
     setFullScreen(f => (f === true ? false : true));
   };
   return currentPageIndex <= 0 ? (
-    <div tabIndex={1} onKeyDown={handleStart}>
-      スタートする
-    </div>
+    <IonContent class='ion-justify-content-center'>
+      <IonButton onClick={handleStart} expand='full'>
+        はじめる
+      </IonButton>
+    </IonContent>
   ) : (
     <Fullscreen enabled={fullScreen} onChange={handleFullScreenChange}>
       <Wrapper tabIndex={0} onKeyDown={handleKeyDown}>

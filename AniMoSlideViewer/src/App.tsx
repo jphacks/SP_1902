@@ -2,13 +2,12 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, IonSplitPane } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { home, list } from 'ionicons/icons';
+import { play, arrowDroprightCircle } from 'ionicons/icons';
 import { RouteDefinition } from './types';
 import { PresentatinPage } from './components/pages/Presentation';
 import { Menu } from './components/standalones/Menu';
 import { ThemeProvider } from 'styled-components';
 import { SlideShowPage } from './components/pages/SlideShow';
-import Fullscreen from 'react-full-screen';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -34,12 +33,12 @@ const routes: RouteDefinition[] = [
   {
     url: 'presentations',
     title: 'プレゼンテーション',
-    icon: home,
+    icon: arrowDroprightCircle,
   },
   {
-    url: 'slides',
-    title: 'スライド',
-    icon: home,
+    url: '/slideshow/sample',
+    title: 'スライドショーデモ',
+    icon: play,
   },
 ];
 

@@ -6,7 +6,6 @@ import {
   IonList,
   IonMenu,
   IonMenuToggle,
-  IonText,
   IonImg,
 } from '@ionic/react';
 import React from 'react';

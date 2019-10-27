@@ -16,60 +16,91 @@ const getAnimatedChildren = (
     return <>{children}</>;
   }
   const { animType, direction } = payload;
-  let directions = {
-    up: false,
-    down: false,
-    left: false,
-    right: false,
-  };
-  switch (direction) {
-    case 'up':
-      directions.down = true;
-    case 'down':
-      directions.up = true;
-    case 'left':
-      directions.left = true;
-    case 'right':
-      directions.right = true;
-  }
 
   switch (animType) {
     case AniMoAnimation.FadeOut:
-      return (
-        <Fade
-          top={directions.up}
-          bottom={directions.down}
-          left={directions.left}
-          right={directions.right}
-          opposite
-          when={visible}
-          duration={duration}
-        >
-          {children}
-        </Fade>
-      );
+      switch (direction) {
+        case 'up':
+          return (
+            <Fade bottom opposite when={visible} duration={duration}>
+              {children}
+            </Fade>
+          );
+        case 'down':
+          return (
+            <Fade top opposite when={visible} duration={duration}>
+              {children}
+            </Fade>
+          );
+        case 'left':
+          return (
+            <Fade left opposite when={visible} duration={duration}>
+              {children}
+            </Fade>
+          );
+        case 'none':
+          return (
+            <Fade when={visible} duration={duration}>
+              {children}
+            </Fade>
+          );
+      }
     case AniMoAnimation.ZoomOut:
-      return (
-        <Zoom
-          top={directions.up}
-          bottom={directions.down}
-          left={directions.left}
-          right={directions.right}
-          opposite
-          when={visible}
-          duration={duration}
-        >
-          {children}
-        </Zoom>
-      );
+      switch (direction) {
+        case 'up':
+          return (
+            <Zoom bottom opposite when={visible} duration={duration}>
+              {children}
+            </Zoom>
+          );
+        case 'down':
+          return (
+            <Zoom top opposite when={visible} duration={duration}>
+              {children}
+            </Zoom>
+          );
+        case 'left':
+          return (
+            <Zoom left opposite when={visible} duration={duration}>
+              {children}
+            </Zoom>
+          );
+        case 'right':
+          return (
+            <Zoom right opposite when={visible} duration={duration}>
+              {children}
+            </Zoom>
+          );
+        case 'none':
+          return (
+            <Zoom when={visible} duration={duration}>
+              {children}
+            </Zoom>
+          );
+      }
     case AniMoAnimation.Rotate:
-      const top = directions.up || directions.left;
-      const bottom = directions.down || directions.right;
-      return (
-        <Rotate top={top} bottom={bottom} opposite when={visible} duration={duration}>
-          {children}
-        </Rotate>
-      );
+      switch (direction) {
+        case 'down':
+        case 'left':
+          return (
+            <Rotate top left opposite when={visible} duration={duration}>
+              {children}
+            </Rotate>
+          );
+        case 'up':
+        case 'right':
+          return (
+            <Rotate bottom right opposite when={visible} duration={duration}>
+              {children}
+            </Rotate>
+          );
+        case 'none':
+          return (
+            <Rotate when={visible} duration={duration}>
+              {children}
+            </Rotate>
+          );
+      }
     case AniMoAnimation.None:
     default:
       return <>{children}</>;
