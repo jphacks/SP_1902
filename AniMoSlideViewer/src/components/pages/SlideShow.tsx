@@ -27,7 +27,7 @@ enum KeyCode {
 
 export const SlideShowPage: React.FC = () => {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
-  const [pageNum, setPageNum] = useState<number>(0);
+  const [pageNum, setPageNum] = useState<number>(-1);
   const [visible, setVisible] = useState(true);
   const [payload, setPayload] = useState<NextSlidePayload>();
   const [fullScreen, setFullScreen] = useState(false);
@@ -66,6 +66,8 @@ export const SlideShowPage: React.FC = () => {
   useEffect(() => {
     if (currentPageIndex <= 0) {
       setFullScreen(false);
+    } else if (pageNum > 0 && currentPageIndex > pageNum) {
+      setCurrentPageIndex(0);
     }
   }, [currentPageIndex]);
 
