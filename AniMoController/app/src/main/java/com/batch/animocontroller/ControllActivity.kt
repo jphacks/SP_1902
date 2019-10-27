@@ -54,6 +54,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_controll)
+        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         socket.connect()
         //センサーマネージャーを取得する
         mManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
@@ -82,7 +83,6 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
 
                     }
                 }
-            val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
             vibrator.vibrate(longArrayOf(0, 30), -1)
         }
 
@@ -104,10 +104,14 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
 
                     }
                 }
-            val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
             vibrator.vibrate(longArrayOf(0, 30), -1)
         }
 
+
+        animationView.setOnLongClickListener {
+            vibrator.vibrate(longArrayOf(0, 30), -1)
+            false
+        }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
@@ -258,7 +262,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
         val animoView = findViewById<ImageView>(R.id.animationView)
         when (swipe) {
             "RIGHT" -> {
-                animoView.setImageResource(R.drawable.ic_blur_on_black_24dp)
+                animoView.setImageResource(R.drawable.ic_blur_on_white_24dp)
 //                animoView.setBackgroundColor(Color.BLACK)
                 animationType = "fadeOut"
                 animationText.text = "フェードアウト"
@@ -268,7 +272,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
                     .playOn(animoView)
             }
             "LEFT" -> {
-                animoView.setImageResource(R.drawable.ic_cached_black_24dp)
+                animoView.setImageResource(R.drawable.ic_cached_white_24dp)
 //                animoView.setBackgroundColor(Color.RED)
                 animationType = "Rotate"
                 animationText.text = "回転"
@@ -278,7 +282,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
                     .playOn(findViewById(R.id.animationView))
             }
             "UP" -> {
-                animoView.setImageResource(R.drawable.ic_compare_arrows_black_24dp)
+                animoView.setImageResource(R.drawable.ic_compare_arrows_white_24dp)
 //                animoView.setBackgroundColor(Color.GREEN)
                 animationType = "none"
                 animationText.text = "なし"
@@ -288,7 +292,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
                     .playOn(findViewById(R.id.animationView))
             }
             "DOWN" -> {
-                animoView.setImageResource(R.drawable.ic_zoom_out_map_black_24dp)
+                animoView.setImageResource(R.drawable.ic_zoom_out_map_white_24dp)
 //                animoView.setBackgroundColor(Color.YELLOW)
                 animationType = "zoomOut"
                 animationText.text = "ズームアウト"
