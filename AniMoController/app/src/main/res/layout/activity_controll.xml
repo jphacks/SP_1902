@@ -7,12 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".ControllActivity">
 
-    <com.hanks.htextview.fade.FadeTextView
+    <TextView
         android:id="@+id/animationText"
-
-        android:gravity="right"
-        android:letterSpacing="0.08"
-        android:lineSpacingMultiplier="1.3"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,9 +17,8 @@
         android:textSize="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:animationDuration="1500">
-    </com.hanks.htextview.fade.FadeTextView>
+        app:layout_constraintTop_toTopOf="parent">
+    </TextView>
 
     <ImageView
         android:id="@+id/animationView"

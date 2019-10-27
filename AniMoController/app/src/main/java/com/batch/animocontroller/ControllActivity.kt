@@ -54,12 +54,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_controll)
-
-        animationText.animation
-        animationText.animationDuration
-
         socket.connect()
-
         //センサーマネージャーを取得する
         mManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         //加速度計のセンサーを取得する
@@ -73,8 +68,8 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
             val endpoint = "mobileSendNextSlideAction"
             val body = JSONObject(
                 """{
-                |"animType":"none",
-                |"direction":"right"
+                |"animType":"fadeOut",
+                |"direction":"none"
                 |}""".trimMargin()
             )
             socket
@@ -87,14 +82,16 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
 
                     }
                 }
+            val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            vibrator.vibrate(longArrayOf(0, 30), -1)
         }
 
         prevImageView.setOnClickListener {
             val endpoint = "mobileSendPrevSlideAction"
             val body = JSONObject(
                 """{
-                |"animType":"none",
-                |"direction":"left"
+                |"animType":"fadeOut",
+                |"direction":"none"
                 |}""".trimMargin()
             )
             socket
@@ -107,6 +104,8 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
 
                     }
                 }
+            val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            vibrator.vibrate(longArrayOf(0, 30), -1)
         }
 
     }
@@ -225,8 +224,8 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
                     Log.d("sensormotion", "下に向かって振ったよ")
                 }
                 // 縦振り
-            } else{
-                if (calcSensorValues(xvalues) -3< 0) {
+            } else {
+                if (calcSensorValues(xvalues) - 3 < 0) {
                     motionId = 3
                     Log.d("sensormotion", "右に向かって振ったよ")
                 } else {
@@ -234,7 +233,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
                     Log.d("sensormotion", "左に向かって振ったよ")
                 }
             }
-        }catch(e: Exception){
+        } catch (e: Exception) {
             Log.d("errorlog", e.toString())
         }
         return motionId
@@ -262,7 +261,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
                 animoView.setImageResource(R.drawable.ic_blur_on_black_24dp)
 //                animoView.setBackgroundColor(Color.BLACK)
                 animationType = "fadeOut"
-                //animationText.text = "fadeOut"
+                animationText.text = "fadeOut"
                 YoYo.with(Techniques.SlideInLeft)
                     .duration(700)
                     .repeat(0)
@@ -272,7 +271,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
                 animoView.setImageResource(R.drawable.ic_cached_black_24dp)
 //                animoView.setBackgroundColor(Color.RED)
                 animationType = "Rotate"
-                //animationText.text = "Rotate"
+                animationText.text = "Rotate"
                 YoYo.with(Techniques.SlideInRight)
                     .duration(700)
                     .repeat(0)
@@ -282,7 +281,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
                 animoView.setImageResource(R.drawable.ic_compare_arrows_black_24dp)
 //                animoView.setBackgroundColor(Color.GREEN)
                 animationType = "none"
-                // animationText.text = "none"
+                animationText.text = "none"
                 YoYo.with(Techniques.SlideInUp)
                     .duration(700)
                     .repeat(0)
@@ -292,7 +291,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
                 animoView.setImageResource(R.drawable.ic_zoom_out_map_black_24dp)
 //                animoView.setBackgroundColor(Color.YELLOW)
                 animationType = "zoomOut"
-                // animationText.text = "zoomOut"
+                animationText.text = "zoomOut"
                 YoYo.with(Techniques.SlideInDown)
                     .duration(700)
                     .repeat(0)
