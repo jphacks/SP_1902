@@ -14,23 +14,31 @@ app.use((req, res, next) => {
 
 app.use(router);
 const port = process.env.PORT || 8080;
-const server = app.listen(port, () => {
+const http = require("http").Server(app);
+const server = http.listen(port, () => {
   console.log(`Node.js is listening to PORT: ${(server.address() as AddressInfo).port}`);
 });
 
-const io = socketIo(server);
+const io = socketIo(http);
 
 io.on('connection', socket => {
+  console.log(`user connected ${socket.id}`)
   // 疎通確認用
   socket.emit('ping', { response: 'pong' });
 
   // モバイルの命令をトリガーに*次のスライドへ進む*イベントを発火
   socket.on(EventType.Mobile_Send_NextSlide_Action, (payload: NextSlidePayload) => {
-    io.sockets.emit(EventType.Web_Go_To_NextSlide, payload);
+    // Use of Date.now() function
+    const d = Date();
+    // Converting the number of millisecond in date string
+    const a = d.toString()
+    console.log(`[${a}]receive ${EventType.Mobile_Send_NextSlide_Action} payload: ${JSON.stringify(payload)}`)
+    socket.broadcast.emit(EventType.Web_Go_To_NextSlide, payload);
   });
 
   // モバイルの命令をトリガーに*前のスライドへ戻る*イベントを発火
   socket.on(EventType.Mobile_Send_PrevSlide_Action, (payload: PrevSlidePayload) => {
+    console.log(`receive ${EventType.Mobile_Send_NextSlide_Action} payload: ${payload}`)
     io.sockets.emit(EventType.Web_Return_To_PrevSlide, payload);
   });
 
