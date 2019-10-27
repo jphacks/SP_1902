@@ -1,7 +1,6 @@
 package com.batch.animocontroller
 
 import android.content.Context
-import android.graphics.Color
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -12,13 +11,14 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GestureDetectorCompat
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import io.socket.client.IO
 import io.socket.emitter.Emitter
-import kotlinx.android.synthetic.main.activity_controll.*
+import kotlinx.android.synthetic.main.activity_connect.view.*
 import org.json.JSONObject
 import java.lang.Exception
 import kotlin.properties.Delegates
@@ -203,7 +203,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
     }
 
     override fun swipeAnim(swipe: String) {
-        val animoView = findViewById<View>(R.id.testView)
+        val animoView = findViewById<ImageView>(R.id.testView)
         when (swipe) {
             "RIGHT" -> {
                 animoView.setBackgroundColor(Color.BLACK)
