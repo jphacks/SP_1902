@@ -38,4 +38,17 @@ dependencies {
     implementation 'com.daimajia.easing:library:2.0@aar'
     implementation 'com.daimajia.androidanimations:library:2.3@aar'
     implementation 'com.google.android.material:material:1.0.0'
+
+    def htextview_version = "0.1.2"
+// as 3.0 use implementation
+    implementation "com.hanks:htextview-base:$htextview_version"        // base library
+
+    implementation "com.hanks:htextview-fade:$htextview_version"        // optional
+    implementation "com.hanks:htextview-line:$htextview_version"        // optional
+    implementation "com.hanks:htextview-rainbow:$htextview_version"     // optional
+    implementation "com.hanks:htextview-typer:$htextview_version"       // optional
+
+    implementation "com.hanks:htextview-scale:$htextview_version"       // optional
+    implementation "com.hanks:htextview-evaporate:$htextview_version"   // optional
+    implementation "com.hanks:htextview-fall:$htextview_version"        // optional
 }

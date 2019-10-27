@@ -15,6 +15,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GestureDetectorCompat
+import androidx.core.view.MotionEventCompat
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import io.socket.client.IO
@@ -54,6 +55,9 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_controll)
 
+        animationText.animation
+        animationText.animationDuration
+
         socket.connect()
 
         //センサーマネージャーを取得する
@@ -63,6 +67,48 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
 
         val aniMoSwipe = AniMoSwipe(this)
         gestureDetectorCompat = GestureDetectorCompat(this, aniMoSwipe)
+
+
+        nextImageView.setOnClickListener {
+            val endpoint = "mobileSendNextSlideAction"
+            val body = JSONObject(
+                """{
+                |"animType":"none",
+                |"direction":"right"
+                |}""".trimMargin()
+            )
+            socket
+                .emit(endpoint, body, Emitter.Listener {
+                })
+                .on("webGoToNextSlide") {
+                    try {
+                        Log.d("batchResponse", it[0].toString())
+                    } catch (e: Exception) {
+
+                    }
+                }
+        }
+
+        prevImageView.setOnClickListener {
+            val endpoint = "mobileSendPrevSlideAction"
+            val body = JSONObject(
+                """{
+                |"animType":"none",
+                |"direction":"left"
+                |}""".trimMargin()
+            )
+            socket
+                .emit(endpoint, body, Emitter.Listener {
+                })
+                .on("webReturnToPrevSlide") {
+                    try {
+                        Log.d("batchResponse", it[0].toString())
+                    } catch (e: Exception) {
+
+                    }
+                }
+        }
+
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
@@ -76,7 +122,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
                 }
             }
             KeyEvent.KEYCODE_VOLUME_DOWN -> {
-                val endpoint = "mobileSendNextSlideAction"
+                val endpoint = "mobileSendPrevSlideAction"
                 if (motionFlag == false) {
                     startSensing()
                 } else {
@@ -210,13 +256,13 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
     }
 
     override fun swipeAnim(swipe: String) {
-        val animoView = findViewById<ImageView>(R.id.testView)
+        val animoView = findViewById<ImageView>(R.id.animationView)
         when (swipe) {
             "RIGHT" -> {
                 animoView.setImageResource(R.drawable.ic_blur_on_black_24dp)
 //                animoView.setBackgroundColor(Color.BLACK)
                 animationType = "fadeOut"
-                animationText.text = "fadeOut"
+                //animationText.text = "fadeOut"
                 YoYo.with(Techniques.SlideInLeft)
                     .duration(700)
                     .repeat(0)
@@ -226,31 +272,31 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
                 animoView.setImageResource(R.drawable.ic_cached_black_24dp)
 //                animoView.setBackgroundColor(Color.RED)
                 animationType = "Rotate"
-                animationText.text = "Rotate"
+                //animationText.text = "Rotate"
                 YoYo.with(Techniques.SlideInRight)
                     .duration(700)
                     .repeat(0)
-                    .playOn(findViewById(R.id.testView))
+                    .playOn(findViewById(R.id.animationView))
             }
             "UP" -> {
                 animoView.setImageResource(R.drawable.ic_compare_arrows_black_24dp)
 //                animoView.setBackgroundColor(Color.GREEN)
                 animationType = "none"
-                animationText.text = "none"
+                // animationText.text = "none"
                 YoYo.with(Techniques.SlideInUp)
                     .duration(700)
                     .repeat(0)
-                    .playOn(findViewById(R.id.testView))
+                    .playOn(findViewById(R.id.animationView))
             }
             "DOWN" -> {
                 animoView.setImageResource(R.drawable.ic_zoom_out_map_black_24dp)
 //                animoView.setBackgroundColor(Color.YELLOW)
                 animationType = "zoomOut"
-                animationText.text = "zoomOut"
+                // animationText.text = "zoomOut"
                 YoYo.with(Techniques.SlideInDown)
                     .duration(700)
                     .repeat(0)
-                    .playOn(findViewById(R.id.testView))
+                    .playOn(findViewById(R.id.animationView))
             }
             else -> {
             }

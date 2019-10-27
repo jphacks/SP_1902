@@ -7,8 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".ControllActivity">
 
-    <TextView
+    <com.hanks.htextview.fade.FadeTextView
         android:id="@+id/animationText"
+
+        android:gravity="right"
+        android:letterSpacing="0.08"
+        android:lineSpacingMultiplier="1.3"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -16,10 +21,12 @@
         android:textSize="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></TextView>
+        app:layout_constraintTop_toTopOf="parent"
+        app:animationDuration="1500">
+    </com.hanks.htextview.fade.FadeTextView>
 
     <ImageView
-        android:id="@+id/testView"
+        android:id="@+id/animationView"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_marginTop="8dp"
@@ -46,29 +53,29 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/testView"
+        app:layout_constraintTop_toBottomOf="@+id/animationView"
         android:src="@drawable/ic_keyboard_arrow_down_black_24dp" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/prevImageView"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:src="@drawable/ic_chevron_left_black_24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/testView"
+        app:layout_constraintBottom_toBottomOf="@+id/animationView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/testView" />
+        app:layout_constraintTop_toTopOf="@+id/animationView" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/nextImageView"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:src="@drawable/ic_chevron_right_black_24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/testView"
+        app:layout_constraintBottom_toBottomOf="@+id/animationView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/testView" />
+        app:layout_constraintTop_toTopOf="@+id/animationView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
