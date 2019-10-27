@@ -213,7 +213,8 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
         val animoView = findViewById<ImageView>(R.id.testView)
         when (swipe) {
             "RIGHT" -> {
-                animoView.setBackgroundColor(Color.BLACK)
+                animoView.setImageResource(R.drawable.ic_blur_on_black_24dp)
+//                animoView.setBackgroundColor(Color.BLACK)
                 animationType = "fadeOut"
                 animationText.text = "fadeOut"
                 YoYo.with(Techniques.SlideInLeft)
@@ -222,16 +223,18 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
                     .playOn(animoView)
             }
             "LEFT" -> {
-                animoView.setBackgroundColor(Color.RED)
-                animationType = "slideOut"
-                animationText.text = "slideOut"
+                animoView.setImageResource(R.drawable.ic_cached_black_24dp)
+//                animoView.setBackgroundColor(Color.RED)
+                animationType = "Rotate"
+                animationText.text = "Rotate"
                 YoYo.with(Techniques.SlideInRight)
                     .duration(700)
                     .repeat(0)
                     .playOn(findViewById(R.id.testView))
             }
             "UP" -> {
-                animoView.setBackgroundColor(Color.GREEN)
+                animoView.setImageResource(R.drawable.ic_compare_arrows_black_24dp)
+//                animoView.setBackgroundColor(Color.GREEN)
                 animationType = "none"
                 animationText.text = "none"
                 YoYo.with(Techniques.SlideInUp)
@@ -240,7 +243,8 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
                     .playOn(findViewById(R.id.testView))
             }
             "DOWN" -> {
-                animoView.setBackgroundColor(Color.YELLOW)
+                animoView.setImageResource(R.drawable.ic_zoom_out_map_black_24dp)
+//                animoView.setBackgroundColor(Color.YELLOW)
                 animationType = "zoomOut"
                 animationText.text = "zoomOut"
                 YoYo.with(Techniques.SlideInDown)
