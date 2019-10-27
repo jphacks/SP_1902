@@ -20,6 +20,7 @@ import com.daimajia.androidanimations.library.YoYo
 import io.socket.client.IO
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_connect.view.*
+import kotlinx.android.synthetic.main.activity_controll.*
 import org.json.JSONObject
 import java.lang.Exception
 import kotlin.properties.Delegates
@@ -209,6 +210,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
             "RIGHT" -> {
                 animoView.setBackgroundColor(Color.BLACK)
                 animationType = "fadeOut"
+                animationText.text = "fadeOut"
                 YoYo.with(Techniques.SlideInLeft)
                     .duration(700)
                     .repeat(0)
@@ -217,6 +219,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
             "LEFT" -> {
                 animoView.setBackgroundColor(Color.RED)
                 animationType = "slideOut"
+                animationText.text = "slideOut"
                 YoYo.with(Techniques.SlideInRight)
                     .duration(700)
                     .repeat(0)
@@ -225,6 +228,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
             "UP" -> {
                 animoView.setBackgroundColor(Color.GREEN)
                 animationType = "none"
+                animationText.text = "none"
                 YoYo.with(Techniques.SlideInUp)
                     .duration(700)
                     .repeat(0)
@@ -233,6 +237,7 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
             "DOWN" -> {
                 animoView.setBackgroundColor(Color.YELLOW)
                 animationType = "zoomOut"
+                animationText.text = "zoomOut"
                 YoYo.with(Techniques.SlideInDown)
                     .duration(700)
                     .repeat(0)
