@@ -63,6 +63,12 @@ export const SlideShowPage: React.FC = () => {
     });
   }, []);
 
+  useEffect(() => {
+    if (currentPageIndex <= 0) {
+      setFullScreen(false);
+    }
+  }, [currentPageIndex]);
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     switch (e.keyCode) {
       case KeyCode.RIGHT_ARROW:
@@ -83,10 +89,12 @@ export const SlideShowPage: React.FC = () => {
         break;
     }
   };
+
   const handleStart = () => {
     setCurrentPageIndex(i => i + 1);
-    setFullScreen(f => (f === true ? false : true));
+    setFullScreen(true);
   };
+
   return currentPageIndex <= 0 ? (
     <IonContent class='ion-justify-content-center'>
       <IonButton onClick={handleStart} expand='full'>
@@ -94,7 +102,7 @@ export const SlideShowPage: React.FC = () => {
       </IonButton>
     </IonContent>
   ) : (
-    <Fullscreen enabled={fullScreen} onChange={handleFullScreenChange}>
+    <Fullscreen enabled={fullScreen}>
       <Wrapper tabIndex={0} onKeyDown={handleKeyDown}>
         <Document
           file='https://animo-teamx.s3-ap-northeast-1.amazonaws.com/AniMo.pdf'
@@ -104,7 +112,7 @@ export const SlideShowPage: React.FC = () => {
             <Page
               key={currentPageIndex}
               pageNumber={currentPageIndex}
-              scale={1.6}
+              scale={1.5}
               renderMode='svg'
             />
           </WithAnimation>
