@@ -139,5 +139,5 @@ $ adb install ./AniMoController/app/release/app-release.apk
 * Androidの加速度センサによる端末の姿勢と端末の振った方向を検出
 * socket.ioを使ったWebとAndroidの双方向通信
 * Webスライドビュワー（アプリケーション全体）
-  * PDDビュワー機能
+  * PDFビュワー機能
   * 複数のアニメーションを用いたスライドの遷移
