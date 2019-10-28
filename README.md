@@ -1,8 +1,9 @@
 # AniMo
 
-[![AniMo](AniMo.png)](https://youtu.be/jVO0hBWw-_U)
+[![AniMo - Presentation](AniMo-presentation.png)](https://youtu.be/-Nk3pYhgoOU)
 [![AniMo - How to Use](AniMo-howtouse.png)](https://youtu.be/o0eTvI-EWbE)
 [![AniMo - Demo](AniMo-demo.png)](https://youtu.be/jVO0hBWw-_U)
+[![AniMo - Authentication](AniMo-authentication.png)](https://youtu.be/8YvWu03_A8A)
 
 ## 製品概要
 
