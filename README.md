@@ -67,7 +67,7 @@ AniMoのアピールポイントは『プレゼンター同期型のプレゼン
 
 ### モバイル コントローラー（Android）
 
-![android-controller](./demos/android-controller.gif)
+<img src="./demos/android-controller.gif" height="500px" />
 
 ### 活用した技術
 
