@@ -1,6 +1,6 @@
 # AniMo
 
-[![AniMo](AniMo.png)](https://youtu.be/a-9RWKaidxE)
+[![AniMo](AniMo.png)](https://youtu.be/jVO0hBWw-_U)
 
 ## 製品概要
 ### Presentation x Tech
