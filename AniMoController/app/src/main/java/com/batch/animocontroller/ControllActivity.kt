@@ -1,7 +1,6 @@
 package com.batch.animocontroller
 
 import android.content.Context
-import android.graphics.Color
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -11,19 +10,15 @@ import android.os.Vibrator
 import android.util.Log
 import android.view.KeyEvent
 import android.view.MotionEvent
-import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GestureDetectorCompat
-import androidx.core.view.MotionEventCompat
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import io.socket.client.IO
 import io.socket.emitter.Emitter
-import kotlinx.android.synthetic.main.activity_connect.view.*
 import kotlinx.android.synthetic.main.activity_controll.*
 import org.json.JSONObject
-import java.lang.Exception
 import kotlin.properties.Delegates
 
 class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Listener {
@@ -218,16 +213,29 @@ class ControllActivity : AppCompatActivity(), SensorEventListener, AniMoSwipe.Li
 
         try {
             // 横振りか縦振りかを判別
-            // 横振り
+            // 縦振り
             if (Math.abs(xvalues[0]) > Math.abs(zvalues[0])) {
-                if (calcSensorValues(xvalues) - 7 > 0) {
-                    motionId = 1
-                    Log.d("sensormotion", "上に向かって振ったよ")
+                // 左手で持ってた場合
+                if(xvalues[0] < 0){
+                    if (calcSensorValues(xvalues) + 7 < 0) {
+                        motionId = 1
+                        Log.d("sensormotion", "上に向かって振ったよ")
+                    }else{
+                        motionId = 2
+                        Log.d("sensormotion", "下に向かって振ったよ")
+                    }
+                // 右手で持ってた場合
                 } else {
-                    motionId = 2
-                    Log.d("sensormotion", "下に向かって振ったよ")
+                    if (calcSensorValues(xvalues) - 7 > 0) {
+                        motionId = 1
+                        Log.d("sensormotion", "上に向かって振ったよ")
+                    } else {
+                        motionId = 2
+                        Log.d("sensormotion", "下に向かって振ったよ")
+                    }
                 }
-                // 縦振り
+
+                // 横振り
             } else {
                 if (calcSensorValues(xvalues) - 3 < 0) {
                     motionId = 3
